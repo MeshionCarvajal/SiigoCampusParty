@@ -1,0 +1,82 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./../index.xhtml">
+            <ui:define name="content">
+                <f:view>
+
+                    <h:form>
+                        <img src="../resources/image/siigo.png" style="width: 250px; height: 100%"/>
+
+                        <p:menubar style="max-width: 100%;min-width: 720px">
+                            <p:menuitem  value="Siigo + que un software contable." style="color: #036fab"  />  
+                            <p:menuitem  value="Empresa" style="color: #000000" url="empresa.xhtml"/>  
+                            <p:menuitem  value="Facturas" style="color: #000000" />  
+                            <p:menuitem  value="Productos" style="color: #000000" outcome="producto.xhtml" />  
+                            <p:menuitem  value="Productos facturas" style="color: #000000"
+                                         outcome="producto_factura.xhtml" url="producto_factura.xhtml"/>  
+                            <p:menuitem  value="Persona" style="color: #000000" url="../index.xhtml" />  
+                        </p:menubar>
+
+
+
+                        <br/>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <br/>
+
+                        <h1>Registrar Factura</h1>
+                        <br/>
+                        <br/>
+                        <p:panelGrid columns="2">
+                            <p:outputLabel value="Fecha:" for="facFecha" />
+                            <p:inputText id="facFecha" value="#{controlFactura.factura.facFecha}" title="FacFecha" 
+                                         required="true" requiredMessage="The FacFecha field is required.">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </p:inputText>
+
+                            <p:outputLabel value="Numero:" for="facNumero" />
+                            <p:inputText id="facNumero" value="#{controlFactura.factura.facNumero}" title="FacNumero" 
+                                         required="true" requiredMessage="The FacNumero field is required."/>
+
+                            <p:outputLabel value="Descuento:" for="facDescuento" />
+                            <p:inputText id="facDescuento" value="#{controlFactura.factura.facDescuento}" 
+                                         title="FacDescuento" required="true" 
+                                         requiredMessage="The FacDescuento field is required."/>
+
+                            <p:outputLabel value="Iva:" for="facIva" />
+                            <p:inputText id="facIva" value="#{controlFactura.factura.facIva}"
+                                         title="FacIva" />
+
+                            <p:outputLabel value="Total:" for="facTotal" />
+                            <p:inputText id="facTotal" value="#{controlFactura.factura.facTotal}" 
+                                         title="FacTotal" required="true" 
+                                         requiredMessage="The FacTotal field is required."/>
+
+                            <p:outputLabel value="Empresa:" for="empresa" />
+                            <p:inputText id="empresa" value="#{controlFactura.factura.empresa}" title="Empresa" />
+                        </p:panelGrid>
+                        <br/>
+                        <br/>
+                        <p:commandButton styleClass="btnMenu" ajax="false" id="botonIngresar" 
+                                         value="Registrar" action="#{controlFactura.agregar()}" 
+                                         update=":mensaje"/>
+                    </h:form>
+                </f:view>
+
+
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

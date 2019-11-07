@@ -1,0 +1,116 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <h:outputStylesheet name="css/default.css"/>
+        <h:outputStylesheet name="css/cssLayout.css"/>
+        <title>Facelets Template</title>
+    </h:head>
+
+    <h:body>
+        <p:growl id="mensaje" showDetail="false" showSummary="true"/>
+
+        <div id="left">
+            <ui:insert name="left"></ui:insert>
+        </div>
+        <div>
+            <div id="right">
+                <ui:insert name="right"></ui:insert>
+            </div>
+            <div id="content" class="right_content">
+                <ui:insert name="content">
+                    <f:view>
+
+
+                        <h:form>
+                            <img src="resources/image/siigo.png" style="width: 250px; height: 100%"/>
+
+                            <p:menubar style="max-width: 100%;min-width: 720px">
+                                <p:menuitem  value="Siigo + que un software contable." style="color: #036fab"  />  
+                                <p:menuitem  value="Empresa" style="color: #000000" outcome="pages/empresa.xhtml"/>  
+                                <p:menuitem  value="Facturas" style="color: #000000" outcome="pages/facturas.xhtml" />  
+                                <p:menuitem  value="Productos" style="color: #000000" outcome="pages/producto.xhtml"/>  
+                                <p:menuitem  value="Productos facturas" style="color: #000000" outcome="pages/producto_factura.xhtml" />  
+                            </p:menubar>
+
+                            <br/>
+                            <br/>
+                            <br/>
+                            <br/>
+                            <br/>
+
+                            <h1>Registrar Persona</h1>
+                            <br/>
+
+                            <p:panelGrid columns="2">
+                                <p:outputLabel value="Nombre:" for="perNombre" />
+                                <p:inputText id="perNombre" value="#{controlPersona.persona.perNombre}" title="PerNombre"
+                                             required="true" requiredMessage="Nombre requiredo."/>
+                                <p:outputLabel value="Apellido:" for="perApellido" />
+                                <p:inputText id="perApellido" value="#{controlPersona.persona.perApellido}" title="PerApellido"
+                                             required="true" requiredMessage="Apellido requiredo."/>
+                            </p:panelGrid>
+                            <br/>
+                            <br/>
+
+                            <p:commandButton styleClass="btnMenu" ajax="false" id="botonIngresar" 
+                                             value="Registrar" action="#{controlPersona.agregar()}" 
+                                             update="mensaje"/>
+
+
+
+
+
+                            <p:separator/>
+                            <p:dataTable id="tblaPersoan" 
+                                         value="#{controlPersona.listaPersonas}"
+                                         style="width: 100%" var="item"
+                                         paginator="true" 
+                                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                         rowsPerPageTemplate="15,10,5" editable="true" >
+
+                                <p:ajax event="rowEdit" listener="#{controlPersona.update(item)}" update=":mensaje" />
+                                <p:ajax event="rowEditCancel" listener="#{controlPersona.cancelar(event)}" update=":mensaje"/>
+
+
+                                <p:column  headerText="Update"  exportable="false" style=" width: 35px" >
+                                    <p:rowEditor />
+                                </p:column>
+
+                                <p:column style="width: 50px">
+                                    <f:facet name="header">
+                                        <h:outputText value="nombre."/>
+                                    </f:facet>
+                                    <f:facet name="input">
+                                        <h:outputText value="##{item.perNombre}"/>
+                                    </f:facet>
+                                </p:column>
+
+                                <p:column style="width: 50px">
+                                    <f:facet name="header">
+                                        <h:outputText value="apellido."/>
+                                    </f:facet>
+                                    <f:facet name="input">
+                                        <h:outputText value="##{item.perApellido}"/>
+                                    </f:facet>
+                                </p:column>
+
+                            </p:dataTable>
+
+                        </h:form>
+                    </f:view>
+
+
+                </ui:insert>
+            </div>
+        </div>
+
+    </h:body>
+
+</html>
